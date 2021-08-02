@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: backend
+      target: development
+    secrets:
+      - db-password
+    depends_on:
+      - db
+    environment:
+      - ENV1=MyCustomEnv1
+      - ENV2=MyCustomEnv2
+  proxy:
+    build: proxy
+    ports:
+      - 8080:80
+    depends_on:
+      - backend
+volumes:
+  db-data:
